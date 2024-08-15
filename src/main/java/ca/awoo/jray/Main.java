@@ -1,9 +1,6 @@
 package ca.awoo.jray;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,16 +22,19 @@ public class Main {
         Material greenMat = new AdvancedMaterial(green, green, black);
         Material glow = new AdvancedMaterial(black, black, white);
         Material sunMat = new AdvancedMaterial(black, black, white.mul(5));
+        Material groundMat = new AdvancedMaterial(black, black, grey);
 
         Solid redSphere = new Solid(new Sphere(new Vector(), 1), redMat);
         Solid glowSphere = new Solid(new Sphere(new Vector(2, 0, 0), 0.5), glow);
         Solid greenSphere = new Solid(new Sphere(new Vector(2, 1, 0), 0.5), greenMat);
         Solid sun = new Solid(new Sphere(new Vector(5000, 10000, -3000), 1000), sunMat);
+        Solid ground = new Solid(new Plane(new Vector(0, -1, 0), new Vector(0, 1, 0)), groundMat);
 
         scene.addSolid(redSphere);
         scene.addSolid(glowSphere);
         scene.addSolid(greenSphere);
         scene.addSolid(sun);
+        scene.addSolid(ground);
 
         Camera camera = new Camera(new Vector(0, 0, -5), Math.PI/3);
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);

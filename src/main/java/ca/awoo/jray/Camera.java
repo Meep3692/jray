@@ -25,7 +25,7 @@ public class Camera {
         ExecutorService threadPool = Executors.newFixedThreadPool(height);
         for(int y = 0; y < height; y++){
             final int row = y;
-            threadPool.submit(() -> {
+            //threadPool.submit(() -> {
                 for(int x = 0; x < width; x++){
                     int index = row*width+x;
                     int byteIndex = index*3;
@@ -47,8 +47,8 @@ public class Camera {
                         rowCallback.run();
                     }
                 }
-                System.out.println("Done row " + row + "/" + height);
-            });
+                //System.out.println("Done row " + row + "/" + height);
+            //});
         }
     }
 
