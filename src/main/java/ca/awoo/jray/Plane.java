@@ -11,9 +11,12 @@ public class Plane implements Shape {
 
     @Override
     public RayHit[] hit(Ray ray) {
-        if(ray.direction().dot(normal) > 0){
-            return new RayHit[0];
-        }
+        // This code is used to discard rays pointing away from the plane
+        // We don't actually want this because of InvertedShape and things
+        // that rely on getting _all_ intersections, not just "useful" ones
+        // if(ray.direction().dot(normal) > 0){
+        //     return new RayHit[0];
+        // }
         Vector diff = point.sub(ray.origin());
         double dist = diff.dot(normal) / ray.direction().dot(normal);
         Vector t = ray.direction().mul(dist).add(ray.origin());
