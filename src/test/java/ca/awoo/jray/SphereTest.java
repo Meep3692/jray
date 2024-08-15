@@ -8,7 +8,7 @@ public class SphereTest {
     @Test
     public void intersectTest(){
         Sphere sphere = new Sphere(new Vector(), 1);
-        Ray ray = new Ray(new Vector(0, 0, -5), new Vector(0, 0, 1));
+        Ray ray = new Ray(new Vector(0, 0, -5), new Vector(0, 0, 1), 0);
         RayHit[] hits = sphere.hit(ray);
         assertEquals("2 hits", 2, hits.length);
         RayHit closeHit = hits[0].distance() > hits[1].distance() ? hits[1] : hits[0];

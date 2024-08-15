@@ -6,15 +6,24 @@ import java.util.Set;
 public class Scene {
     //TODO: perhaps an octree would cause less dispair?
     private final Set<Solid> solids = new HashSet<>();
+    private final int maxDepth = 10;
 
     public void addSolid(Solid solid){
         solids.add(solid);
     }
 
     public Colour castColour(Ray ray){
+        return castColour(ray, null);
+    }
+
+    public Colour castColour(Ray ray, Solid exclude){
+        if(ray.depth() > maxDepth) return new Colour(0, 0, 0);
         RayHit nearestHit = null;
         Solid nearestSolid = null;
         for(Solid solid : solids){
+            if(solid.equals(exclude)){
+                continue;
+            }
             RayHit[] hits = solid.shape().hit(ray);
             for(RayHit hit : hits){
                 //Check if hit is in front of us and facing us
@@ -36,7 +45,7 @@ public class Scene {
             //We hit nothing
             return new Colour(0, 0, 0);
         }else{
-            return nearestSolid.material().colour(nearestSolid.shape(), nearestHit, this);
+            return nearestSolid.material().colour(nearestSolid, nearestHit, this);
         }
     }
 }

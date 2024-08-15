@@ -21,7 +21,7 @@ public class Sphere implements Shape {
         Vector t2 = ray.origin().add(ray.direction().mul(d2));
         Vector normal1 = t1.sub(center).normalize();
         Vector normal2 = t2.sub(center).normalize();
-        return new RayHit[]{new RayHit(d1, t1, normal1), new RayHit(d2, t2, normal2)};
+        return new RayHit[]{new RayHit(d1, t1, normal1, ray), new RayHit(d2, t2, normal2, ray)};
     }
     
 }

@@ -7,16 +7,37 @@ import java.awt.image.DataBufferByte;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args){
-        int width = 640;
-        int height = 480;
+        int width = 320;
+        int height = 240;
         Scene scene = new Scene();
-        Solid redSphere = new Solid(new Sphere(new Vector(), 1), new SolidColourMaterial(new Colour(1, 0, 0)));
+
+        Colour red = new Colour(1, 0.5, 0.5);
+        Colour green = new Colour(0.5, 1, 0.5);
+        Colour grey = new Colour(0.5, 0.5, 0.5);
+        Colour black = new Colour(0, 0, 0);
+        Colour white = new Colour(1, 1, 1);
+
+        Material redMat = new AdvancedMaterial(red, black, black);
+        Material greenMat = new AdvancedMaterial(green, green, black);
+        Material glow = new AdvancedMaterial(black, black, white);
+        Material sunMat = new AdvancedMaterial(black, black, white.mul(5));
+
+        Solid redSphere = new Solid(new Sphere(new Vector(), 1), redMat);
+        Solid glowSphere = new Solid(new Sphere(new Vector(2, 0, 0), 0.5), glow);
+        Solid greenSphere = new Solid(new Sphere(new Vector(2, 1, 0), 0.5), greenMat);
+        Solid sun = new Solid(new Sphere(new Vector(5000, 10000, -3000), 1000), sunMat);
+
         scene.addSolid(redSphere);
+        scene.addSolid(glowSphere);
+        scene.addSolid(greenSphere);
+        scene.addSolid(sun);
+
         Camera camera = new Camera(new Vector(0, 0, -5), Math.PI/3);
-        Image image = camera.render(scene, width, height);
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
         ImageIcon icon = new ImageIcon(image);
         JFrame frame = new JFrame();
         JLabel label = new JLabel();
@@ -25,6 +46,12 @@ public class Main {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        camera.rowCallback(() -> {
+            SwingUtilities.invokeLater(() -> {
+                frame.repaint();
+            });
+        });
+        camera.render(scene, image);
     }
 
     private static <T> String ats(T[] array){

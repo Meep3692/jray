@@ -2,10 +2,12 @@ package ca.awoo.jray;
 
 public class Ray {
     private final Vector origin, direction;
+    private final int depth;
 
-    public Ray(Vector origin, Vector direction){
+    public Ray(Vector origin, Vector direction, int depth){
         this.origin = origin;
         this.direction = direction;
+        this.depth = depth;
     }
 
     public Vector origin(){
@@ -14,6 +16,10 @@ public class Ray {
 
     public Vector direction(){
         return direction;
+    }
+
+    public int depth(){
+        return depth;
     }
 
     @Override

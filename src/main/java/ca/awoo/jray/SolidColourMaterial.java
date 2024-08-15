@@ -8,7 +8,7 @@ public class SolidColourMaterial implements Material{
     }
 
     @Override
-    public Colour colour(Shape shape, RayHit hit, Scene scene) {
+    public Colour colour(Solid solid, RayHit hit, Scene scene) {
         return colour;
     }
     
