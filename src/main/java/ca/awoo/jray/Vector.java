@@ -57,4 +57,9 @@ public class Vector {
     public String toString() {
         return "<" + x + ", " + y + ", " + z + ">";
     }
+
+    public static Vector normalized(double x, double y, double z){
+        double m = Math.sqrt(x*x+y*y+z*z);
+        return new Vector(x/m, y/m, z/m);
+    }
 }
