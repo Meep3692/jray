@@ -8,8 +8,8 @@ import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args){
-        int width = 320;
-        int height = 240;
+        int width = 640;
+        int height = 480;
         Scene scene = new Scene();
 
         Colour red = new Colour(1, 0.5, 0.5);
@@ -18,16 +18,22 @@ public class Main {
         Colour black = new Colour(0, 0, 0);
         Colour white = new Colour(1, 1, 1);
 
-        Material redMat = new AdvancedMaterial(red, black, black);
-        Material greenMat = new AdvancedMaterial(green, green, black);
-        Material glow = new AdvancedMaterial(black, black, white);
-        Material sunMat = new AdvancedMaterial(black, black, white.mul(5));
-        Material groundMat = new AdvancedMaterial(black, black, grey);
+        // Material redMat = new AdvancedMaterial(red, black, black);
+        // Material greenMat = new AdvancedMaterial(green, green, black);
+        // Material glow = new AdvancedMaterial(black, black, white);
+        // Material sunMat = new AdvancedMaterial(black, black, white.mul(5));
+        // Material groundMat = new AdvancedMaterial(black, black, grey);
+        Material redMat = new SingleRayMaterial(0, red, black);
+        Material greenMat = new SingleRayMaterial(0.5, green, black);
+        Material glow = new SingleRayMaterial(0, white, white);
+        Material sunMat = new SingleRayMaterial(0, white, white.mul(5));
+        Material groundMat = new SingleRayMaterial(0, grey, black);
+
 
         Solid redSphere = new Solid(new Sphere(new Vector(), 1), redMat);
         Solid glowSphere = new Solid(new Sphere(new Vector(2, 0, 0), 0.5), glow);
         Solid greenSphere = new Solid(new Sphere(new Vector(2, 1, 0), 0.5), greenMat);
-        Solid sun = new Solid(new Sphere(new Vector(5000, 10000, -3000), 1000), sunMat);
+        Solid sun = new Solid(new Sphere(new Vector(500000, 1000000, -300000), 1), sunMat);
         Solid ground = new Solid(new Plane(new Vector(0, -1, 0), new Vector(0, 1, 0)), groundMat);
 
         scene.addSolid(redSphere);
@@ -51,7 +57,7 @@ public class Main {
                 frame.repaint();
             });
         });
-        camera.render(scene, image);
+        camera.render(scene, image, 200);
     }
 
     private static <T> String ats(T[] array){
