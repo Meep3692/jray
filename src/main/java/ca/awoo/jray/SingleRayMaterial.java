@@ -13,6 +13,9 @@ public class SingleRayMaterial implements Material {
 
     @Override
     public Colour colour(Solid solid, RayHit hit, Scene scene) {
+        if(base.equals(Colour.BLACK)){
+            return emission;
+        }
         Vector specularDir = hit.cause().direction().add(hit.normal().mul(hit.normal().dot(hit.cause().direction())*-2));
         Vector diffuseDir = new Vector(Math.random(), Math.random(), Math.random()).normalize();
         if(diffuseDir.dot(hit.normal()) < 0){

@@ -71,6 +71,7 @@ public class Camera {
                     throw new RuntimeException(e);
                 }
             }
+            
             if(rowCallback != null){
                 rowCallback.run();
             }
