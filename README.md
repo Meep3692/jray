@@ -1,0 +1,5 @@
+# jray
+Raycasting engine built in java.
+
+## Basic theory of operation
+A [Camera](src/main/java/ca/awoo/jray/Camera.java) will fire several [Rays](src/main/java/ca/awoo/jray/Ray.java) through a [Scene](src/main/java/ca/awoo/jray/Scene.java) for every pixel. The [Scene](src/main/java/ca/awoo/jray/Scene.java) will cast the rays against some [Solids](src/main/java/ca/awoo/jray/Solid.java) based on their [Shape](src/main/java/ca/awoo/jray/Shape.java). The [Solid](src/main/java/ca/awoo/jray/Solid.java) uses its defined [Material](src/main/java/ca/awoo/jray/Material.java) to determine the [Colour](src/main/java/ca/awoo/jray/Colour.java) of the hit ray. Materials may cast additional Rays through the Scene for reflections or other effects. The Camera fires multiple Rays per pixel and takes an average as each Ray may bounce randomly around the scene. When running the example program at [Main](src/main/java/ca/awoo/jray/Main.java), you will notice the image starts out very noisy and gets less noisy with every pass.
