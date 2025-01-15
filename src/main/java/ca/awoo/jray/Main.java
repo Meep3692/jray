@@ -18,7 +18,7 @@ public class Main {
         Colour grey = new Colour(0.5, 0.5, 0.5);
         Colour black = new Colour(0, 0, 0);
         Colour white = new Colour(1, 1, 1);
-        Colour skyBlue = new Colour(37.0/255.0, 115.0/255.0, 248.0/255.0);
+        Colour skyBlue = new Colour(37.0/255.0, 115.0/255.0, 248.0/255.0).mul(0.5);
 
         // Material redMat = new AdvancedMaterial(red, black, black);
         // Material greenMat = new AdvancedMaterial(green, green, black);
@@ -38,7 +38,7 @@ public class Main {
         Solid greenSphere = new Solid(new Sphere(new Vector(2, 1, 0), 0.5), greenMat);
         Solid sun = new Solid(new Sphere(new Vector(500000, 1000000, -300000).normalize().mul(10000), 1), sunMat);
         Solid ground = new Solid(new Plane(new Vector(0, -1, 0), new Vector(0, 1, 0)), groundMat);
-        Solid sky = new Solid(new InvertedShape(new Sphere(new Vector(), 10000)), skyMat);
+        Solid sky = new Solid(new InvertedShape(new Sphere(new Vector(), 10000000)), skyMat);
 
         scene.addSolid(redSphere);
         scene.addSolid(glowSphere);
